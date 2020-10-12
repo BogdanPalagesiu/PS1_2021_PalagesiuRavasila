@@ -1,0 +1,53 @@
+int sensorPin = 0;
+#include <LiquidCrystal.h>
+
+int h=15;
+int m=59;
+int s=45;
+
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup()
+{
+  pinMode(13, OUTPUT);
+  Serial.begin(9600);
+  lcd.begin(16, 2);
+
+}
+
+void loop()
+{
+  lcd.display();
+  delay(1000);
+  s=s+1;
+  if(s>59){
+    s=0;
+    m=m+1;
+  }
+  if(m>59){
+    m=0;
+    h=h+1;
+  }
+  if(h>23){
+    h=0;
+  }
+  int reading = analogRead(sensorPin);
+  float voltage = reading * 5.0;
+  voltage /= 1024.0;
+  float temperatureC = (voltage - 0.5) * 100 ;
+  lcd.clear();
+  lcd.print("Temp = ");
+  lcd.print(temperatureC);
+  lcd.setCursor(0,1);
+  lcd.print("Ora ");
+  lcd.print(h);
+  lcd.print(":");
+  lcd.print(m);
+  lcd.print(":");
+  lcd.print(s);
+  digitalWrite(13, HIGH);
+  // delay(1000);
+  //digitalWrite(13, LOW);
+  //delay(1000);
+}
