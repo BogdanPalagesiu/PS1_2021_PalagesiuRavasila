@@ -388,7 +388,7 @@ void setup()
   TCCR1B |= (1 << WGM12) | (1 << CS10)|(1 << CS12);//prescaler 1024 
 }
 
-ISR(TIMER1_COMPA_vect) //numaratorul pentru ceas si secunde
+ISR(TIMER1_COMPA_vect) 
 {
   sec++;
   if( sec == 59 )
